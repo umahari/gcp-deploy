@@ -9,6 +9,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      CI: true 
+      slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     strategy:
       matrix:
@@ -27,9 +30,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
      - run: npm install
    # - run: npm run build --if-present
-     - run: npm test
-       env:
-        CI: true
+    # - run: npm test
      -  uses: craftech-io/slack-action@v1
         with:
           slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
