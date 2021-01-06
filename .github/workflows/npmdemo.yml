@@ -22,10 +22,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
    # - run: npm run build --if-present
-    - run: npm test
+   # - run: npm test
       env:
         CI: true
-    -  uses: craftech-io/slack@v1
+    -  uses: act10ns/slack@v1
        with:
         slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         status: ${{ job.status }}
