@@ -30,5 +30,6 @@ jobs:
         slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         status: ${{ job.status }}
         steps: ${{ toJson(steps) }}
+        channel: '#testing-for-punnet'
        if: always()
     
