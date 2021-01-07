@@ -7,27 +7,32 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    env: SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    
     strategy:
       matrix:
         node-version: [12.x]
 
     steps:
-     - uses: actions/checkout@v2
-     - name: Use Node.js ${{ matrix.node-version }}
-     - uses: actions/setup-node@v1
-       with:
-        node-version: ${{ matrix.node-version }}
-        id: Build npm  
-     - run: npm install
-   # - run: npm run build --if-present
-     - run: npm test
-     -  uses: craftech-io/slack-action@v1
+      - uses: act10ns/slack@v1
         with:
-          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
+          status: starting
           channel: '#testing-for-punnet'
         if: always()
-    
+    - name: checkout
+      id: var
+    - uses: actions/checkout@v2
+    - name: varible
+      id: action
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: build image
+      id: NPM install
+    - run: npm install
+    - run: npm run build --if-present
+    - run: npm test
+      env:
+        CI: true
