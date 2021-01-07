@@ -30,8 +30,12 @@ jobs:
     - name: npm install
       id: npm_install
       run: npm install
-  #  - run: npm run build --if-present
-   # - run: npm test
+    - name: npm build
+      id: npm build
+      run: npm run build --if-present
+    - name: npm test
+      id: npm test
+      run: npm test
     - uses: act10ns/slack@v1
       with:
         status: ${{ job.status }}
