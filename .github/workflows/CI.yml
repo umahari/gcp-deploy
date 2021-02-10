@@ -2,11 +2,14 @@
 name: Node.js CI
 
 on: 
-  schedule:
-    - cron: "3 * * * *"
-  pull_request: 
+  push:
     branches: 
-      - dev
+      - main
+  schedule:
+    - cron: "0/5 * * * *"
+#   pull_request: 
+#     branches: 
+#       - dev
 
 
 jobs:
@@ -22,6 +25,9 @@ jobs:
        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     steps:
+    - uses: actions/set-timezone-action@v1.1
+      with:
+       timezoneLinux: "Asia/India"   
     - uses: act10ns/slack@v1
       with:
           status: starting
