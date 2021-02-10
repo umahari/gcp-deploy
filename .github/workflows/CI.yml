@@ -24,7 +24,11 @@ jobs:
     env: 
        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-    steps:  
+    steps: 
+    - name: Setup timezone
+      uses: zcong1993/setup-timezone@master
+      with:
+       timezone: Asia/India 
     - uses: act10ns/slack@v1
       with:
           status: starting
